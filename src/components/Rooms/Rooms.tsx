@@ -1,18 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom"
 
 import rooms from "../../data/rooms.json";
+import useInventory from "../../hooks/useInventory";
 
 
 const Room = () => {
     const { roomPath } = useParams();
     const room = rooms.find(r => r.roomPath === roomPath);
 
-    // temporärt olöst
-    const [isSolved] = useState(false);
+    const { items, setItems } = useInventory();
+
+    const [isSolved, setIsSolved] = useState(false);
 
     const [searchParams, setSearchParams] = useSearchParams();
     const showHint = searchParams.get("hint") === "true";
+
+    const handleUseItem = (itemId: number) => {
+        if (itemId === room?.itemToSolve) {
+            setIsSolved(true);
+        }
+    };
+
+    useEffect(() => {
+        if (isSolved && room?.itemToAdd) {
+            setItems([...items, room.itemToAdd]);
+        }
+    }, [isSolved, room, items, setItems]);
 
     if (!room) {
         return <h1> Rummet finns inte! </h1>;
@@ -39,6 +53,7 @@ const Room = () => {
                     <p>{room.hint}</p>
                 )}
             </section>
+            {/* <Inventory onUseItem={handleUseItem} /> */}
         </div>
     );
 };
