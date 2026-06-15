@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom"
 
 import rooms from "../../data/rooms.json";
-import useInventory from "../../hooks/useInventory";
+import InventoryProvider from "../../context/InventoryContext";
+
+import Inventory from "../Inventory/Inventory";
 
 
 const Room = () => {
     const { roomPath } = useParams();
     const room = rooms.find(r => r.roomPath === roomPath);
 
-    {/* const { items, addItem } = useInventory(); */}
+    {/* const { items, addItem } = useInventory(); */ }
 
     const [isSolved, setIsSolved] = useState(false);
 
@@ -35,9 +37,9 @@ const Room = () => {
     return (
         <div>
             <section>
-                <img 
-                    src={isSolved ? room.solvedImage : room.unsolvedImage} 
-                    alt={room.roomName} 
+                <img
+                    src={isSolved ? room.solvedImage : room.unsolvedImage}
+                    alt={room.roomName}
                 />
             </section>
             <section>
@@ -45,7 +47,7 @@ const Room = () => {
                     {isSolved ? room.solvedInstruction : room.unsolvedInstruction}
                 </p>
                 {!showHint && (
-                    <button onClick={() => setSearchParams({ hint: "true" }) }>
+                    <button onClick={() => setSearchParams({ hint: "true" })}>
                         HINT
                     </button>
                 )}
@@ -53,7 +55,10 @@ const Room = () => {
                     <p>{room.hint}</p>
                 )}
             </section>
-            {/* <Inventory onUseItem={handleUseItem} /> */}
+
+            <InventoryProvider>
+                <Inventory />
+            </InventoryProvider>
         </div>
     );
 };
