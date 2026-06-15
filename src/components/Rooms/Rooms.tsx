@@ -9,7 +9,7 @@ const Room = () => {
     const { roomPath } = useParams();
     const room = rooms.find(r => r.roomPath === roomPath);
 
-    const { items, setItems } = useInventory();
+    {/* const { items, addItem } = useInventory(); */}
 
     const [isSolved, setIsSolved] = useState(false);
 
@@ -22,11 +22,11 @@ const Room = () => {
         }
     };
 
-    useEffect(() => {
+    {/* useEffect(() => {
         if (isSolved && room?.itemToAdd) {
-            setItems([...items, room.itemToAdd]);
+            addItem([...items, room.itemToAdd]);
         }
-    }, [isSolved, room, items, setItems]);
+    }, [isSolved, room, items, addItem]); */}
 
     if (!room) {
         return <h1> Rummet finns inte! </h1>;

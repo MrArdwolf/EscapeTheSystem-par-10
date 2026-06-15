@@ -10,14 +10,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Header />
-      <InventoryProvider>
-      <Inventory />
-      </InventoryProvider>
-
       <Routes>
         <Route path="/room/:roomPath" element={<Room />} />
       </Routes>
-      
+      <InventoryProvider>
+        <Inventory />
+      </InventoryProvider>
     </BrowserRouter>
   );
 };
