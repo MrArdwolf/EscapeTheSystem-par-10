@@ -23,6 +23,7 @@ export default function inventory() {
 
   return (
     <div className="inventory">
+      <button onClick={handleAddItem}>Add Item</button>
       {items.map((item: any) => (
         <Item key={item.id} item={item.item} src={item.image} description={item.description} />
       ))}
