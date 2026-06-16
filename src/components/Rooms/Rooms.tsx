@@ -10,13 +10,21 @@ import Inventory from "../Inventory/Inventory";
 
 const Room = () => {
     const { roomPath } = useParams();
-    const { showHints, markHintShown } = useRoomContext();
+    const { showHints, markHintShown, showHintNow, restoreHint } = useRoomContext();
+
+    const hintWasTrue = showHints[roomPath!] === true;
+
+    useEffect(() => {
+        if (hintWasTrue) {
+            restoreHint();
+        }
+    }, [roomPath]);
+
+    const showHint = showHintNow || hintWasTrue;
 
     const room = rooms.find(r => r.roomPath === roomPath);
 
     const [isSolved, setIsSolved] = useState(false);
-
-    const showHint = showHints[roomPath!] === true;
 
     const handleUseItem = (itemId: number) => {
         if (itemId === room?.itemToSolve) {
