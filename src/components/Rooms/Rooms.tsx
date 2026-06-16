@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import rooms from "../../data/rooms.json";
 import InventoryProvider from "../../context/InventoryContext";
+import useRoomContext from "../../hooks/useRoom.ts";
 
 import Inventory from "../Inventory/Inventory";
 
 
 const Room = () => {
     const { roomPath } = useParams();
-    const room = rooms.find(r => r.roomPath === roomPath);
+    const { showHints, markHintShown } = useRoomContext();
 
-    {/* const { items, addItem } = useInventory(); */ }
+    const room = rooms.find(r => r.roomPath === roomPath);
 
     const [isSolved, setIsSolved] = useState(false);
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const showHint = searchParams.get("hint") === "true";
+    const showHint = showHints[roomPath!] === true;
 
     const handleUseItem = (itemId: number) => {
         if (itemId === room?.itemToSolve) {
@@ -47,7 +47,7 @@ const Room = () => {
                     {isSolved ? room.solvedInstruction : room.unsolvedInstruction}
                 </p>
                 {!showHint && (
-                    <button onClick={() => setSearchParams({ hint: "true" })}>
+                    <button onClick={() => markHintShown(roomPath!)}>
                         HINT
                     </button>
                 )}
