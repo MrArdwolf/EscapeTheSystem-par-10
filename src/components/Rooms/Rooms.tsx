@@ -24,7 +24,19 @@ const Room = () => {
 
     const room = rooms.find(r => r.roomPath === roomPath);
 
+    if (!room) {
+        return <h1> Rummet finns inte! </h1>;
+    }
+
     const [isSolved, setIsSolved] = useState(false);
+    const [inventory, setInventory] = useState<any[]>([]);
+
+    useEffect(() => {
+        if (inventory.some(item => item.id === room.itemToAdd)) {
+            setIsSolved(true);
+        }
+    }, [inventory, roomPath]);
+
 
     const handleUseItem = (itemId: number) => {
         if (itemId === room?.itemToSolve) {
@@ -32,11 +44,6 @@ const Room = () => {
         }
     };
 
-    {/* useEffect(() => {
-        if (isSolved && room?.itemToAdd) {
-            addItem([...items, room.itemToAdd]);
-        }
-    }, [isSolved, room, items, addItem]); */}
 
     if (!room) {
         return <h1> Rummet finns inte! </h1>;
@@ -65,7 +72,7 @@ const Room = () => {
             </section>
 
             <InventoryProvider>
-                <Inventory />
+                <Inventory room={room} setIsSolved={setIsSolved} setInventory={setInventory} />
             </InventoryProvider>
         </div>
     );

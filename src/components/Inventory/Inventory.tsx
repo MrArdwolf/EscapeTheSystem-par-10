@@ -4,14 +4,23 @@ import useInventory from '../../hooks/useInventory'
 
 import { useEffect } from 'react'
 
+interface InventoryProps {
+  room: any;
+  setIsSolved: (isSolved: boolean) => void;
+  setInventory: (inventory: any[]) => void;
+}
 
-export default function inventory() {
+export default function inventory({ room, setIsSolved, setInventory }: InventoryProps) {
   const { items, addItem, addFirstItem } = useInventory()
   const unusedItems = itemsData.filter(item => !items.some(i => i.item === item.item))
 
   useEffect(() => {
     addFirstItem(itemsData[0])
   }, [])
+
+  useEffect(() => {
+    setInventory(items);
+  }, [items]);
 
   const handleAddItem = () => {
     if (unusedItems.length === 0) return
@@ -20,6 +29,11 @@ export default function inventory() {
     addItem(itemToAdd)
   }
 
+  // const isSolved = items.some(item => item.item === room.itemToAdd);
+
+  // if (isSolved) {
+  //   setIsSolved(true);
+  // }
 
   return (
     <div className="inventory">
