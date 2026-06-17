@@ -4,28 +4,37 @@ import useInventory from '../../hooks/useInventory'
 
 import { useEffect } from 'react'
 
+interface InventoryProps {
+  room: any;
+  setInventory: (inventory: any[]) => void;
+  setLastRoomCompleted: (lastRoomCompleted: boolean) => void;
+}
 
-export default function inventory() {
+export default function inventory({ room, setInventory, setLastRoomCompleted }: InventoryProps) {
   const { items, addItem, addFirstItem } = useInventory()
-  const unusedItems = itemsData.filter(item => !items.some(i => i.item === item.item))
 
   useEffect(() => {
     addFirstItem(itemsData[0])
   }, [])
 
-  const handleAddItem = () => {
-    if (unusedItems.length === 0) return
-    const itemToAdd = unusedItems[Math.floor(Math.random() * unusedItems.length)]
-    unusedItems.splice(unusedItems.indexOf(itemToAdd), 1)
-    addItem(itemToAdd)
-  }
+  useEffect(() => {
+    setInventory(items);
+  }, [items]);
 
+  const handleUseItem = (itemId: number) => {
+    if (items.some(item => item.id === room.itemToAdd)) return;
+
+    if (!room.itemToAdd) {
+      setLastRoomCompleted(true);
+    } else if (itemId === room.itemToSolve) {
+      addItem(itemsData.find(item => item.id === room.itemToAdd));
+    }
+  };
 
   return (
     <div className="inventory">
-      <button onClick={handleAddItem}>Add Item</button>
-      {items.map((item: any) => (
-        <Item key={item.id} item={item.item} src={item.image} description={item.description} />
+      {items.map((item: any, index: number) => (
+        <Item key={index} item={item} handleUseItem={handleUseItem} />
       ))}
     </div>
   )
