@@ -11,6 +11,7 @@ import Inventory from "../Inventory/Inventory";
 const Room = () => {
     const { roomPath } = useParams();
     const { showHints, markHintShown, showHintNow, restoreHint } = useRoomContext();
+    const [lastRoomCompleted, setLastRoomCompleted] = useState(false);
 
     const hintWasTrue = showHints[roomPath!] === true;
 
@@ -48,13 +49,13 @@ const Room = () => {
         <div>
             <section>
                 <img
-                    src={isSolved ? room.solvedImage : room.unsolvedImage}
+                    src={isSolved || lastRoomCompleted ? room.solvedImage : room.unsolvedImage}
                     alt={room.roomName}
                 />
             </section>
             <section>
                 <p>
-                    {isSolved ? room.solvedInstruction : room.unsolvedInstruction}
+                    {isSolved || lastRoomCompleted ? room.solvedInstruction : room.unsolvedInstruction}
                 </p>
                 {!showHint && (
                     <button onClick={() => markHintShown(roomPath!)}>
@@ -67,7 +68,7 @@ const Room = () => {
             </section>
 
             <InventoryProvider>
-                <Inventory room={room} setInventory={setInventory} />
+                <Inventory room={room} setInventory={setInventory} setLastRoomCompleted={setLastRoomCompleted} />
             </InventoryProvider>
         </div>
     );

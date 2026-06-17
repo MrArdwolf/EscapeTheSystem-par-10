@@ -6,7 +6,6 @@ export type RoomContextType = {
     showHintNow: boolean;
     markHintShown: (roomPath: string) => void;
     restoreHint: () => void;
-    completedRooms: string[];
 
 };
 
@@ -19,8 +18,6 @@ export const RoomProvider = ({ children }: PropsWithChildren) => {
 
     const showHintNow = searchParams.get("hint") === "true";
 
-    const [completedRooms, setCompletedRooms] = useState<string[]>([]);
-
     const markHintShown = (roomPath: string) => {
         setSearchParams({ hint: "true" });
         setShowHints(prev => ({ ...prev, [roomPath]: true }));
@@ -30,13 +27,8 @@ export const RoomProvider = ({ children }: PropsWithChildren) => {
         setSearchParams({ hint: "true" });
     };
 
-    const addCompletedRoom = (roomPath: string) => {
-        setCompletedRooms(prev => [...prev, roomPath]);
-        // setSearchParams({ completedRooms: prev.join(",") });
-    };
-
     return (
-        <RoomContext.Provider value={{ showHints, markHintShown, showHintNow, restoreHint, completedRooms,  }}>
+        <RoomContext.Provider value={{ showHints, markHintShown, showHintNow, restoreHint,  }}>
             {children}
         </RoomContext.Provider>
     );

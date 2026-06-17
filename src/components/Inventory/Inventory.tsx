@@ -7,9 +7,10 @@ import { useEffect } from 'react'
 interface InventoryProps {
   room: any;
   setInventory: (inventory: any[]) => void;
+  setLastRoomCompleted: (lastRoomCompleted: boolean) => void;
 }
 
-export default function inventory({ room, setInventory }: InventoryProps) {
+export default function inventory({ room, setInventory, setLastRoomCompleted }: InventoryProps) {
   const { items, addItem, addFirstItem } = useInventory()
 
   useEffect(() => {
@@ -21,9 +22,11 @@ export default function inventory({ room, setInventory }: InventoryProps) {
   }, [items]);
 
   const handleUseItem = (itemId: number) => {
-    if (!room.itemToAdd || items.some(item => item.id === room.itemToAdd)) return;
-    
-    if (itemId === room.itemToSolve) {
+    if (items.some(item => item.id === room.itemToAdd)) return;
+
+    if (!room.itemToAdd) {
+      setLastRoomCompleted(true);
+    } else if (itemId === room.itemToSolve) {
       addItem(itemsData.find(item => item.id === room.itemToAdd));
     }
   };
