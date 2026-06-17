@@ -34,15 +34,10 @@ const Room = () => {
     useEffect(() => {
         if (inventory.some(item => item.id === room.itemToAdd)) {
             setIsSolved(true);
+        } else {
+            setIsSolved(false);
         }
     }, [inventory, roomPath]);
-
-
-    const handleUseItem = (itemId: number) => {
-        if (itemId === room?.itemToSolve) {
-            setIsSolved(true);
-        }
-    };
 
 
     if (!room) {
@@ -72,7 +67,7 @@ const Room = () => {
             </section>
 
             <InventoryProvider>
-                <Inventory room={room} setIsSolved={setIsSolved} setInventory={setInventory} />
+                <Inventory room={room} setInventory={setInventory} />
             </InventoryProvider>
         </div>
     );

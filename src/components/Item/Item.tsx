@@ -1,16 +1,15 @@
 
 
 interface Props {
-  item: string
-  src: string
-  description: string
+  item: { id: number, name: string, description: string, image: string };
+  handleUseItem: (itemId: number) => void;
 }
 
 
-export default function item( { item, src, description } : Props ) {
+export default function item( { item, handleUseItem } : Props ) {
     return (
-      <div className="item">
-        <img src={src} alt={item} />
+      <div className="item" onClick={() => handleUseItem(item.id)}>
+        <img src={item.image} alt={item.name} />
       </div>
     )
 }
