@@ -13,6 +13,9 @@ const Header = () => {
     return (
         <header>
             <nav>
+                <div className="home-link">
+                    <Link to="/">Start</Link>
+                </div>
                 {randomRooms.map(room => (
                     <Link key={room.id} to={`/room/${room.roomPath}`}>
                         {room.roomName}

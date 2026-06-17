@@ -3,6 +3,7 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Room from "./components/Rooms/Rooms";
 import { RoomProvider } from "./context/RoomContext";
+import Homepage from "./components/Homepage/Homepage";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
       <Header />
       <RoomProvider>
         <Routes>
+          <Route path="/" element={<Homepage />} />
           <Route path="/room/:roomPath" element={<Room />} />
         </Routes>
       </RoomProvider>
