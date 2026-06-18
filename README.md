@@ -16,14 +16,23 @@ Starta utvecklingsservern: ``npm run dev``
 
 ### Implementerade krav
 
+#### G:
+
 - Routing mellan olika rum med React Router   
+- Startsida med introduktion   
+- Navigation till med länkar (Link) till spelets olika rum   
 - Inventory där spelaren kan plocka upp och använda items   
-- Hint-system med knappar för visning av ledtrådar   
 - Lösningslogik för varje rum (unsolved -> solved)   
+- Användning av JSON-data för rum och items   
+
+
+#### VG:
+
 - Vinstskärm som visas när sista rummet är löst   
+- Hint-system med knappar för visning av ledtrådar   
 - Route (*) för att fånga okända paths   
 - Komponentbaserad struktur   
-- Användning av JSON-data för rum och items   
+
 
 ### Tekniker
 
