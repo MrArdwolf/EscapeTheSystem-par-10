@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 import Header from "./components/Header/Header";
 import Room from "./components/Rooms/Rooms";
 import { RoomProvider } from "./context/RoomContext";

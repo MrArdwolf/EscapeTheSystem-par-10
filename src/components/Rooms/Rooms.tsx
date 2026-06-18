@@ -6,14 +6,14 @@ import InventoryProvider from "../../context/InventoryContext";
 import useRoomContext from "../../hooks/useRoom.ts";
 
 import Inventory from "../Inventory/Inventory";
-
+import "./Room.scss";
 
 const Room = () => {
     const { roomPath } = useParams();
     const { showHints, markHintShown, showHintNow, restoreHint } = useRoomContext();
     const [lastRoomCompleted, setLastRoomCompleted] = useState(false);
 
-    const navigate =useNavigate();
+    const navigate = useNavigate();
 
     const hintWasTrue = showHints[roomPath!] === true;
 
@@ -48,32 +48,33 @@ const Room = () => {
     }
 
     return (
-        <div>
-            <section>
+        <div className="room">
+            <main>
                 <img
                     src={isSolved || lastRoomCompleted ? room.solvedImage : room.unsolvedImage}
                     alt={room.roomName}
                 />
-            </section>
-            <section>
-                <p>
-                    {isSolved || lastRoomCompleted ? room.solvedInstruction : room.unsolvedInstruction}
-                </p>
-                {!showHint && (
-                    <button onClick={() => markHintShown(roomPath!)}>
-                        HINT
-                    </button>
-                )}
-                {showHint && (
-                    <p>{room.hint}</p>
-                )}
-                {lastRoomCompleted && (
-                    <button onClick={() => navigate("/victory")}>
-                        ESCAPE
-                    </button>
-                )}
-            </section>
-
+                <section>
+                    <p className="instruction">
+                        {isSolved || lastRoomCompleted ? room.solvedInstruction : room.unsolvedInstruction}
+                    </p>
+                    <div className="button-container">
+                        {!showHint && (
+                            <button className="primary-button" onClick={() => markHintShown(roomPath!)}>
+                                HINT
+                            </button>
+                        )}
+                        {showHint && (
+                            <p>{room.hint}</p>
+                        )}
+                        {lastRoomCompleted && (
+                            <button className="secondary-button" onClick={() => navigate("/victory")}>
+                                ESCAPE
+                            </button>
+                        )}
+                    </div>
+                </section>
+            </main>
             <InventoryProvider>
                 <Inventory room={room} setInventory={setInventory} setLastRoomCompleted={setLastRoomCompleted} />
             </InventoryProvider>

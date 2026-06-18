@@ -1,0 +1,53 @@
+@use '../../assets/scss/utils/variables' as *;
+@use 'sass:math';
+
+.room {
+
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+
+  main {
+    display: flex;
+    border: 2px solid $primary-color;
+    width: 700px;
+
+    img {
+      width: 350px;
+      height: 100%;
+      border-right: 2px solid $primary-color;
+    }
+
+    section {
+      width: 50%;
+      align-items: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+        text-align: center;
+
+      .instruction {
+        position: absolute;
+        bottom: 60%;
+        width: 90%;
+        
+      }
+
+      .button-container {
+        position: absolute;
+        top: 60%;
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+
+        p {
+          height: 45px;
+        }
+      }
+    }
+  }
+}

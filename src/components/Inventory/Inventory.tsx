@@ -1,7 +1,7 @@
 import itemsData from '../../data/items.json'
 import Item from '../Item/Item'
 import useInventory from '../../hooks/useInventory'
-
+import './Inventory.scss'
 import { useEffect } from 'react'
 
 interface InventoryProps {

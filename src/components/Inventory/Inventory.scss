@@ -1,0 +1,12 @@
+@use '../../assets/scss/utils/variables' as *;
+
+
+.inventory {
+  padding: 16px 0;
+  display: flex;
+  border: 2px solid $primary-color;
+
+  :first-child {
+    border: none;
+  }
+}
