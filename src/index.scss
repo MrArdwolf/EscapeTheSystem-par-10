@@ -1,0 +1,9 @@
+@use 'assets/scss/main.scss' as *;
+
+body {
+    background-color: $page-color;
+    color: $white-color;
+    width: 100dvw;
+    display: flex;
+    justify-content: center;
+}

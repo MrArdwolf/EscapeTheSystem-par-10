@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./WinScreen.scss";
 
 const WinScreen = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const WinScreen = () => {
         <section>
             <h1>You escaped!</h1>
             <p>Congratulations, you completed Project NEXUS.</p>
-            <button onClick={handleRestart}>Play again</button>
+            <button className="primary-button" onClick={handleRestart}>Play again</button>
         </section>
     );
 };

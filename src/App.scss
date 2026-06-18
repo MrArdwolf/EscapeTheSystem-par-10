@@ -1,0 +1,15 @@
+@use 'assets/scss/utils/variables' as *;
+
+
+#root {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 72px;
+  
+  background-color: $background-color;
+  padding: 48px;
+  max-width: 1080px;
+  width: 100%;
+
+}

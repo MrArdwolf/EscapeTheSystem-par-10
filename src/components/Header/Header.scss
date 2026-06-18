@@ -1,0 +1,29 @@
+@use '../../assets/scss/utils/variables' as *;
+
+
+header {
+  
+  nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    :first-child {
+      margin-right: 32px;
+    }
+
+    a {
+      text-decoration: none;
+      color: $black-color;
+      background-color: $primary-color;
+      padding: 8px 16px;
+
+      &:hover {
+        background-color: $secondary-color;
+        transition: transform 0.2s ease-in-out;
+        transform: scale(1.1) translateY(1px);
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@use '../../assets/scss/utils/variables' as *;
+
+
+
+.item {
+  
+    padding: 0 16px;
+    border-left: 2px solid $primary-color;
+
+  img {
+    width: 100px;
+
+    &:hover {
+      cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+      transform: scale(1.1);
+    }
+  }
+}
