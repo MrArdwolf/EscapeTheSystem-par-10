@@ -11,6 +11,7 @@ import Inventory from "../Inventory/Inventory";
 const Room = () => {
     const { roomPath } = useParams();
     const { showHints, markHintShown, showHintNow, restoreHint } = useRoomContext();
+    const [lastRoomCompleted, setLastRoomCompleted] = useState(false);
 
     const hintWasTrue = showHints[roomPath!] === true;
 
@@ -24,19 +25,21 @@ const Room = () => {
 
     const room = rooms.find(r => r.roomPath === roomPath);
 
+    if (!room) {
+        return <h1> Rummet finns inte! </h1>;
+    }
+
     const [isSolved, setIsSolved] = useState(false);
+    const [inventory, setInventory] = useState<any[]>([]);
 
-    const handleUseItem = (itemId: number) => {
-        if (itemId === room?.itemToSolve) {
+    useEffect(() => {
+        if (inventory.some(item => item.id === room.itemToAdd)) {
             setIsSolved(true);
+        } else {
+            setIsSolved(false);
         }
-    };
+    }, [inventory, roomPath]);
 
-    {/* useEffect(() => {
-        if (isSolved && room?.itemToAdd) {
-            addItem([...items, room.itemToAdd]);
-        }
-    }, [isSolved, room, items, addItem]); */}
 
     if (!room) {
         return <h1> Rummet finns inte! </h1>;
@@ -46,13 +49,13 @@ const Room = () => {
         <div>
             <section>
                 <img
-                    src={isSolved ? room.solvedImage : room.unsolvedImage}
+                    src={isSolved || lastRoomCompleted ? room.solvedImage : room.unsolvedImage}
                     alt={room.roomName}
                 />
             </section>
             <section>
                 <p>
-                    {isSolved ? room.solvedInstruction : room.unsolvedInstruction}
+                    {isSolved || lastRoomCompleted ? room.solvedInstruction : room.unsolvedInstruction}
                 </p>
                 {!showHint && (
                     <button onClick={() => markHintShown(roomPath!)}>
@@ -65,7 +68,7 @@ const Room = () => {
             </section>
 
             <InventoryProvider>
-                <Inventory />
+                <Inventory room={room} setInventory={setInventory} setLastRoomCompleted={setLastRoomCompleted} />
             </InventoryProvider>
         </div>
     );

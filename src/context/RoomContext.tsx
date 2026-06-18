@@ -6,6 +6,7 @@ export type RoomContextType = {
     showHintNow: boolean;
     markHintShown: (roomPath: string) => void;
     restoreHint: () => void;
+
 };
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -27,7 +28,7 @@ export const RoomProvider = ({ children }: PropsWithChildren) => {
     };
 
     return (
-        <RoomContext.Provider value={{ showHints, markHintShown, showHintNow, restoreHint }}>
+        <RoomContext.Provider value={{ showHints, markHintShown, showHintNow, restoreHint,  }}>
             {children}
         </RoomContext.Provider>
     );
