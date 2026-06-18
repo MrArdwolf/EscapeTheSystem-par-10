@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import rooms from "../../data/rooms.json";
 import InventoryProvider from "../../context/InventoryContext";
@@ -12,6 +12,8 @@ const Room = () => {
     const { roomPath } = useParams();
     const { showHints, markHintShown, showHintNow, restoreHint } = useRoomContext();
     const [lastRoomCompleted, setLastRoomCompleted] = useState(false);
+
+    const navigate =useNavigate();
 
     const hintWasTrue = showHints[roomPath!] === true;
 
@@ -42,7 +44,7 @@ const Room = () => {
 
 
     if (!room) {
-        return <h1> Rummet finns inte! </h1>;
+        return <h1> The room does not exist! </h1>;
     }
 
     return (
@@ -64,6 +66,11 @@ const Room = () => {
                 )}
                 {showHint && (
                     <p>{room.hint}</p>
+                )}
+                {lastRoomCompleted && (
+                    <button onClick={() => navigate("/victory")}>
+                        ESCAPE
+                    </button>
                 )}
             </section>
 

@@ -3,13 +3,9 @@ import { useNavigate } from "react-router-dom";
 const WinScreen = () => {
     const navigate = useNavigate();
 
-    const resetGame = () => {
-
-    };
-
     const handleRestart = () => {
-        resetGame();
         navigate("/");
+        window.location.reload();
     };
     
     return (
